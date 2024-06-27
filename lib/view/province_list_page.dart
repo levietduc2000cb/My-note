@@ -45,11 +45,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    final preferencesManager = PreferencesManager();
-    setState(() {
-      userId = preferencesManager.getInt('userId');
-      userName = preferencesManager.getString('userName');
-    });
+    initStateInPreferencesManager();
     refreshProvinces();
   }
 
@@ -262,5 +258,13 @@ class _HomePageState extends State<HomePage> {
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
+  }
+
+  void initStateInPreferencesManager(){
+    final preferencesManager = PreferencesManager();
+    setState(() {
+      userId = preferencesManager.getInt('userId');
+      userName = preferencesManager.getString('userName');
+    });
   }
 }
