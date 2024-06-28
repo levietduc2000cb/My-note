@@ -6,23 +6,23 @@ class ProvinceEdit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     int idProvince = ModalRoute.of(context)?.settings.arguments as int;
 
     return MaterialApp(
       title: 'My Note',
       home: Scaffold(
-        appBar: AppBar(title: const Text('Edit',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+        appBar: AppBar(
+          title:
+              const Text('Edit', style: TextStyle(fontWeight: FontWeight.bold)),
           backgroundColor: Colors.black,
-          foregroundColor: Colors.white,),
+          foregroundColor: Colors.white,
+        ),
         body: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
             color: Colors.black87,
-            child: ProvinceEditForm(idProvince: idProvince)
-        ),
+            child: ProvinceEditForm(idProvince: idProvince)),
       ),
     );
   }

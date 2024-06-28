@@ -7,8 +7,8 @@ class ProvinceInforEditList extends StatefulWidget {
       {super.key,
       required this.idProvince,
       required this.titleForm,
-        required this.handleDelete,
-        required this.handleCreate,
+      required this.handleDelete,
+      required this.handleCreate,
       required this.render,
       required this.idKey,
       required this.nameKey});
@@ -16,8 +16,8 @@ class ProvinceInforEditList extends StatefulWidget {
   final int idProvince;
   final String titleForm;
   final Future<dynamic> Function() render;
-  final Future<dynamic> Function(dynamic)  handleCreate;
-  final Future<dynamic> Function(dynamic)  handleDelete;
+  final Future<dynamic> Function(dynamic) handleCreate;
+  final Future<dynamic> Function(dynamic) handleDelete;
   final String idKey;
   final String nameKey;
 
@@ -60,32 +60,34 @@ class _ProvinceInforEditList extends State<ProvinceInforEditList> {
                 children: [
                   Expanded(
                       child: Container(
-                        margin: const EdgeInsets.only(top: 6),
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        decoration: BoxDecoration(
-                          // Màu nền
-                          border: Border.all(
-                            color: Colors.grey, // Màu border
-                            width: 2.0, // Độ rộng border
-                          ),
-                          borderRadius: BorderRadius.circular(6.0), // Bo góc border
+                    margin: const EdgeInsets.only(top: 6),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                      // Màu nền
+                      border: Border.all(
+                        color: Colors.grey, // Màu border
+                        width: 2.0, // Độ rộng border
+                      ),
+                      borderRadius: BorderRadius.circular(6.0), // Bo góc border
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          data[widget.nameKey].toString(),
+                          style: const TextStyle(
+                              fontSize: 15, color: Colors.white70),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              data[widget.nameKey].toString(),
-                              style: const TextStyle(fontSize: 15, color: Colors.white70),
-                            ),
-                            IconButton(
-                                onPressed: ()=>deleteItemFromList(data[widget.idKey]),
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                ))
-                          ],
-                        ),
-                      ))
+                        IconButton(
+                            onPressed: () =>
+                                deleteItemFromList(data[widget.idKey]),
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ))
+                      ],
+                    ),
+                  ))
                 ],
               ),
           ],
@@ -98,7 +100,7 @@ class _ProvinceInforEditList extends State<ProvinceInforEditList> {
                   foregroundColor: Colors.black,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6))),
-              onPressed: ()=>showForm(context),
+              onPressed: () => showForm(context),
               child: Text('New $titleForm'),
             ))
           ],
@@ -125,7 +127,7 @@ class _ProvinceInforEditList extends State<ProvinceInforEditList> {
             await widget.handleDelete(id);
             renderInforList();
           } catch (e) {
-            if(!mounted) return;
+            if (!mounted) return;
             showNotification(context, "Delete a failed!!!");
           }
         });

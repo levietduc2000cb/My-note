@@ -45,7 +45,7 @@ class Province extends StatelessWidget {
                   child: Column(
                     children: [
                       GestureDetector(
-                        onTap: ()=>goProvinceDetail(context),
+                        onTap: () => goProvinceDetail(context),
                         child: Text(province,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,

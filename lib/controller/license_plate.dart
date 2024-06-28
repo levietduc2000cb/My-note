@@ -20,7 +20,6 @@ Future<int> createLicense(LicensePlateModel licensePlate) async {
   return id;
 }
 
-
 Future<List<Map<String, dynamic>>> getLicensePlates() async {
   late Future<List<Map<String, dynamic>>> licensePlates;
   try {
@@ -33,18 +32,19 @@ Future<List<Map<String, dynamic>>> getLicensePlates() async {
   return licensePlates;
 }
 
-Future<List<Map<String, dynamic>>> getLicensePlatesByProvinceId(int idProvince) async {
+Future<List<Map<String, dynamic>>> getLicensePlatesByProvinceId(
+    int idProvince) async {
   late Future<List<Map<String, dynamic>>> licensePlates;
   try {
     final db = await SQLHelper.getDb();
-    licensePlates = db.query(_licenseTable, where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
+    licensePlates = db.query(_licenseTable,
+        where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
   } catch (err) {
     debugPrint("getLicensePlatesByProvinceId(): $err");
   }
 
   return licensePlates;
 }
-
 
 Future<List<Map<String, dynamic>>> getLicensePlate(int id) async {
   late Future<List<Map<String, dynamic>>> licensePlate;
@@ -60,7 +60,6 @@ Future<List<Map<String, dynamic>>> getLicensePlate(int id) async {
 
   return licensePlate;
 }
-
 
 Future<int> updateLicensePlate(LicensePlateModel licensePlate) async {
   int result = 0;
@@ -78,7 +77,8 @@ Future<int> updateLicensePlate(LicensePlateModel licensePlate) async {
 Future<void> deleteLicensePlate(int id) async {
   try {
     final db = await SQLHelper.getDb();
-    await db.delete(_licenseTable, where: "$_columnLicensePlateId = ?", whereArgs: [id]);
+    await db.delete(_licenseTable,
+        where: "$_columnLicensePlateId = ?", whereArgs: [id]);
   } catch (err) {
     debugPrint("Something went wrong when deleting an license plate: $err");
   }
@@ -87,9 +87,9 @@ Future<void> deleteLicensePlate(int id) async {
 Future<void> deleteLicensePlateByProvinceId(int idProvince) async {
   try {
     final db = await SQLHelper.getDb();
-    await db.delete(_licenseTable, where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
+    await db.delete(_licenseTable,
+        where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
   } catch (err) {
     debugPrint("Something went wrong when deleting an license plate: $err");
   }
 }
-

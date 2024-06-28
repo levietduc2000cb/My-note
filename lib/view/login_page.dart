@@ -69,67 +69,71 @@ class _LoginForm extends State<LoginForm> {
             ],
           ),
           Form(
-            key: _loginFormKey,
+              key: _loginFormKey,
               child: Column(
-            children: [
-              InputForm(
-                  keyboardType: TextInputType.text,
-                  controller: userNameController,
-                  textInputAction: TextInputAction.next,
-                  labelText: 'User name',
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your user name';
-                    }
-                    return null;
-                  }),
-              InputForm(
-                  keyboardType: TextInputType.text,
-                  controller: passwordController,
-                  obscureText: true,
-                  textInputAction: TextInputAction.done,
-                  labelText: 'Password',
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    }
-                    return null;
-                  }),
-              Container(
-                margin: const EdgeInsets.only(top: 24),
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6)
-                              )
-                            ),
-                            onPressed: _login,
-                            child: const Text('Login', style: TextStyle(color: Colors.black),)))
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 24),
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.redAccent,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(6)
-                                )
-                            ),
-                            onPressed: () {},
-                            child: const Text('Google', style: TextStyle(color: Colors.white),)))
-                  ],
-                ),
-              )
-            ],
-          )),
+                children: [
+                  InputForm(
+                      keyboardType: TextInputType.text,
+                      controller: userNameController,
+                      textInputAction: TextInputAction.next,
+                      labelText: 'User name',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your user name';
+                        }
+                        return null;
+                      }),
+                  InputForm(
+                      keyboardType: TextInputType.text,
+                      controller: passwordController,
+                      obscureText: true,
+                      textInputAction: TextInputAction.done,
+                      labelText: 'Password',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        return null;
+                      }),
+                  Container(
+                    margin: const EdgeInsets.only(top: 24),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(6))),
+                                onPressed: _login,
+                                child: const Text(
+                                  'Login',
+                                  style: TextStyle(color: Colors.black),
+                                )))
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 24),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.redAccent,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(6))),
+                                onPressed: () {},
+                                child: const Text(
+                                  'Google',
+                                  style: TextStyle(color: Colors.white),
+                                )))
+                      ],
+                    ),
+                  )
+                ],
+              )),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -150,16 +154,18 @@ class _LoginForm extends State<LoginForm> {
     );
   }
 
-  void goToRegisterPage(){
+  void goToRegisterPage() {
     Navigator.of(context).push(
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => const RegisterPage(),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const RegisterPage(),
         transitionDuration: const Duration(seconds: 1),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           var begin = const Offset(-1.5, 0.0);
           var end = Offset.zero;
           var curve = Curves.ease;
-          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
           return SlideTransition(
             position: animation.drive(tween),
             child: child,
@@ -173,24 +179,22 @@ class _LoginForm extends State<LoginForm> {
     try {
       List<dynamic> user = await getUserByUserNameAndPassword(
           userNameController.text, passwordController.text);
-      if(user.isNotEmpty){
+      if (user.isNotEmpty) {
         final preferencesManager = PreferencesManager();
         await preferencesManager.init();
         await preferencesManager.saveInt('userId', user[0]['id']);
         await preferencesManager.saveString('userName', user[0]['userName']);
         if (!mounted) return;
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const ProvinceListPage())
-        );
-      }else{
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const ProvinceListPage()));
+      } else {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('User name or password is incorrect!!!')),
+          const SnackBar(
+              content: Text('User name or password is incorrect!!!')),
         );
       }
-    }catch(err){
+    } catch (err) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Login failure')),
@@ -203,12 +207,9 @@ class _LoginForm extends State<LoginForm> {
     await preferencesManager.init();
     final userId = preferencesManager.getInt('userId');
     if (!mounted) return;
-    if(userId != null){
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const ProvinceListPage())
-      );
+    if (userId != null) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const ProvinceListPage()));
     }
   }
 }

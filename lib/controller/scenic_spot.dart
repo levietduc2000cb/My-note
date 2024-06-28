@@ -20,7 +20,6 @@ Future<int> createScenicSpot(ScenicSpotModel scenicSpot) async {
   return id;
 }
 
-
 Future<List<Map<String, dynamic>>> getScenicSpots() async {
   late Future<List<Map<String, dynamic>>> scenicSpots;
   try {
@@ -33,18 +32,19 @@ Future<List<Map<String, dynamic>>> getScenicSpots() async {
   return scenicSpots;
 }
 
-Future<List<Map<String, dynamic>>> getScenicSpotsByProvinceId(int idProvince) async {
+Future<List<Map<String, dynamic>>> getScenicSpotsByProvinceId(
+    int idProvince) async {
   late Future<List<Map<String, dynamic>>> scenicSpots;
   try {
     final db = await SQLHelper.getDb();
-    scenicSpots = db.query(_scenicSpotTable, where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
+    scenicSpots = db.query(_scenicSpotTable,
+        where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
   } catch (err) {
     debugPrint("getScenicSpotsByProvinceId(): $err");
   }
 
   return scenicSpots;
 }
-
 
 Future<List<Map<String, dynamic>>> getScenicSpot(int id) async {
   late Future<List<Map<String, dynamic>>> scenicSpot;
@@ -61,7 +61,6 @@ Future<List<Map<String, dynamic>>> getScenicSpot(int id) async {
   return scenicSpot;
 }
 
-
 Future<int> updateScenicSpot(ScenicSpotModel scenicSpot) async {
   int result = 0;
   try {
@@ -75,11 +74,11 @@ Future<int> updateScenicSpot(ScenicSpotModel scenicSpot) async {
   return result;
 }
 
-
 Future<void> deleteScenicSpot(int id) async {
   try {
     final db = await SQLHelper.getDb();
-    await db.delete(_scenicSpotTable, where: "$_columnScenicSpotId = ?", whereArgs: [id]);
+    await db.delete(_scenicSpotTable,
+        where: "$_columnScenicSpotId = ?", whereArgs: [id]);
   } catch (err) {
     debugPrint("Something went wrong when deleting an scenic spot: $err");
   }
@@ -88,7 +87,8 @@ Future<void> deleteScenicSpot(int id) async {
 Future<void> deleteScenicSpotByProvinceId(int idProvince) async {
   try {
     final db = await SQLHelper.getDb();
-    await db.delete(_scenicSpotTable, where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
+    await db.delete(_scenicSpotTable,
+        where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
   } catch (err) {
     debugPrint("Something went wrong when deleting an license plate: $err");
   }

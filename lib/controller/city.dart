@@ -20,7 +20,6 @@ Future<int> createCity(CityModel city) async {
   return id;
 }
 
-
 Future<List<Map<String, dynamic>>> getCities() async {
   late Future<List<Map<String, dynamic>>> cities;
   try {
@@ -37,14 +36,14 @@ Future<List<Map<String, dynamic>>> getCitiesByProvinceId(int idProvince) async {
   late Future<List<Map<String, dynamic>>> cities;
   try {
     final db = await SQLHelper.getDb();
-    cities = db.query(_cityTable, where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
+    cities = db.query(_cityTable,
+        where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
   } catch (err) {
     debugPrint("getCitiesByProvinceId(): $err");
   }
 
   return cities;
 }
-
 
 Future<List<Map<String, dynamic>>> getCity(int id) async {
   late Future<List<Map<String, dynamic>>> city;
@@ -60,7 +59,6 @@ Future<List<Map<String, dynamic>>> getCity(int id) async {
 
   return city;
 }
-
 
 Future<int> updateCity(CityModel city) async {
   int result = 0;
@@ -88,7 +86,8 @@ Future<void> deleteCity(int id) async {
 Future<void> deleteCityByProvinceId(int idProvince) async {
   try {
     final db = await SQLHelper.getDb();
-    await db.delete(_cityTable, where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
+    await db.delete(_cityTable,
+        where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
   } catch (err) {
     debugPrint("Something went wrong when deleting city: $err");
   }

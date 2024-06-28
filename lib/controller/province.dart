@@ -68,7 +68,8 @@ Future<List<Map<String, dynamic>>> getProvince(int id) async {
 }
 
 // Read a single item by id
-Future<List<Map<String, dynamic>>> getProvinceByName(String nameProvince) async {
+Future<List<Map<String, dynamic>>> getProvinceByName(
+    String nameProvince) async {
   late Future<List<Map<String, dynamic>>> province;
 
   try {
@@ -83,17 +84,19 @@ Future<List<Map<String, dynamic>>> getProvinceByName(String nameProvince) async 
   return province;
 }
 
-
 // Read list provinces by provinceName
-Future<List<Map<String, dynamic>>> getProvincesByProvinceName(String name, String? orderBy) async {
+Future<List<Map<String, dynamic>>> getProvincesByProvinceName(
+    String name, String? orderBy) async {
   late Future<List<Map<String, dynamic>>> provinces;
   try {
     name = "%$name%";
     final db = await SQLHelper.getDb();
-    if(orderBy != null && orderBy.isNotEmpty){
+    if (orderBy != null && orderBy.isNotEmpty) {
       provinces = db.query(_provincesTable,
-          where: "$_columnProvinceName LIKE ?", whereArgs: [name], orderBy: "$_columnProvinceName $orderBy");
-    }else{
+          where: "$_columnProvinceName LIKE ?",
+          whereArgs: [name],
+          orderBy: "$_columnProvinceName $orderBy");
+    } else {
       provinces = db.query(_provincesTable,
           where: "$_columnProvinceName LIKE ?", whereArgs: [name]);
     }
@@ -105,17 +108,21 @@ Future<List<Map<String, dynamic>>> getProvincesByProvinceName(String name, Strin
 }
 
 // Read list provinces by provinceName
-Future<List<Map<String, dynamic>>> getProvincesByProvinceNameAndUserId(String name,int userId, String? orderBy) async {
+Future<List<Map<String, dynamic>>> getProvincesByProvinceNameAndUserId(
+    String name, int userId, String? orderBy) async {
   late Future<List<Map<String, dynamic>>> provinces;
   try {
     name = "%$name%";
     final db = await SQLHelper.getDb();
-    if(orderBy != null && orderBy.isNotEmpty){
+    if (orderBy != null && orderBy.isNotEmpty) {
       provinces = db.query(_provincesTable,
-          where: "$_columnProvinceUserId = ? AND $_columnProvinceName LIKE ?", whereArgs: [userId, name], orderBy: "$_columnProvinceName $orderBy");
-    }else{
+          where: "$_columnProvinceUserId = ? AND $_columnProvinceName LIKE ?",
+          whereArgs: [userId, name],
+          orderBy: "$_columnProvinceName $orderBy");
+    } else {
       provinces = db.query(_provincesTable,
-          where: "$_columnProvinceUserId = ? AND $_columnProvinceName LIKE ?", whereArgs: [userId, name]);
+          where: "$_columnProvinceUserId = ? AND $_columnProvinceName LIKE ?",
+          whereArgs: [userId, name]);
     }
   } catch (err) {
     debugPrint("getProvince(): $err");
@@ -129,9 +136,8 @@ Future<int> updateProvince(ProvinceModel province) async {
   int result = 0;
   try {
     final db = await SQLHelper.getDb();
-    result = await db.update(_provincesTable, {
-      _columnProvinceName: province.provinceName
-    },
+    result = await db.update(
+        _provincesTable, {_columnProvinceName: province.provinceName},
         where: "$_columnProvinceId = ?", whereArgs: [province.id]);
   } catch (err) {
     debugPrint("updateProvince(): $err");
@@ -144,7 +150,8 @@ Future<int> updateProvince(ProvinceModel province) async {
 Future<void> deleteProvince(int id) async {
   try {
     final db = await SQLHelper.getDb();
-    await db.delete(_provincesTable, where: "$_columnProvinceId = ?", whereArgs: [id]);
+    await db.delete(_provincesTable,
+        where: "$_columnProvinceId = ?", whereArgs: [id]);
   } catch (err) {
     debugPrint("Something went wrong when deleting an item: $err");
   }

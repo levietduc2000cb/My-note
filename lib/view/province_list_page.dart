@@ -172,8 +172,6 @@ class _HomePageState extends State<HomePage> {
       default:
     }
     try{
-      final preferencesManager = PreferencesManager();
-      final userId = preferencesManager.getInt('userId');
       dynamic data = await getProvincesByProvinceNameAndUserId(provinceName, userId!, selectedSort);
       refreshProvinces(data);
     }catch (e) {

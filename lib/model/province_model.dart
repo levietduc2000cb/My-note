@@ -4,7 +4,6 @@ class ProvinceModel {
   final int? userId;
   final String? createdAt;
 
-
   ProvinceModel({
     this.id,
     this.provinceName,
@@ -17,6 +16,11 @@ class ProvinceModel {
   }
 
   Map<String, dynamic> toMapHasUserId() {
-    return {'id': id, 'provinceName': provinceName, 'userId':userId, 'createdAt': createdAt};
+    return {
+      'id': id,
+      'provinceName': provinceName,
+      'userId': userId,
+      'createdAt': createdAt
+    };
   }
 }

@@ -20,7 +20,6 @@ Future<int> createUniversity(UniversityModel university) async {
   return id;
 }
 
-
 Future<List<Map<String, dynamic>>> getUniversites() async {
   late Future<List<Map<String, dynamic>>> universities;
   try {
@@ -33,11 +32,13 @@ Future<List<Map<String, dynamic>>> getUniversites() async {
   return universities;
 }
 
-Future<List<Map<String, dynamic>>> getUniversitiesByProvinceId(int idProvince) async {
+Future<List<Map<String, dynamic>>> getUniversitiesByProvinceId(
+    int idProvince) async {
   late Future<List<Map<String, dynamic>>> universities;
   try {
     final db = await SQLHelper.getDb();
-    universities = db.query(_universityTable, where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
+    universities = db.query(_universityTable,
+        where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
   } catch (err) {
     debugPrint("getUniversitiesByProvinceId(): $err");
   }
@@ -60,7 +61,6 @@ Future<List<Map<String, dynamic>>> getUniversity(int id) async {
   return university;
 }
 
-
 Future<int> updateUniversity(UniversityModel university) async {
   int result = 0;
   try {
@@ -77,7 +77,8 @@ Future<int> updateUniversity(UniversityModel university) async {
 Future<void> deleteUniversity(int id) async {
   try {
     final db = await SQLHelper.getDb();
-    await db.delete(_universityTable, where: "$_columnUniversityId = ?", whereArgs: [id]);
+    await db.delete(_universityTable,
+        where: "$_columnUniversityId = ?", whereArgs: [id]);
   } catch (err) {
     debugPrint("Something went wrong when deleting an university: $err");
   }
@@ -86,7 +87,8 @@ Future<void> deleteUniversity(int id) async {
 Future<void> deleteUniversityByProvinceId(int idProvince) async {
   try {
     final db = await SQLHelper.getDb();
-    await db.delete(_universityTable, where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
+    await db.delete(_universityTable,
+        where: "$_columnProvinceIdRelative = ?", whereArgs: [idProvince]);
   } catch (err) {
     debugPrint("Something went wrong when deleting an license plate: $err");
   }

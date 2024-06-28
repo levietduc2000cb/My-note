@@ -10,9 +10,9 @@ class PreferencesManager {
   late final SharedPreferences _prefs;
 
   Future<void> init() async {
-    try{
+    try {
       _prefs = await SharedPreferences.getInstance();
-    }catch(err){
+    } catch (err) {
       _prefs;
     }
   }
@@ -36,5 +36,4 @@ class PreferencesManager {
   Future<void> clearSharedPreferences() async {
     await _prefs.clear();
   }
-
 }

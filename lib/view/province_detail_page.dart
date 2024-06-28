@@ -15,14 +15,11 @@ class ProvinceDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int idProvince = ModalRoute
-        .of(context)
-        ?.settings
-        .arguments as int;
+    int idProvince = ModalRoute.of(context)?.settings.arguments as int;
 
     return MaterialApp(
       home: Scaffold(
-        body: ProvinceDetail(idProvince:idProvince),
+        body: ProvinceDetail(idProvince: idProvince),
       ),
     );
   }
@@ -38,7 +35,6 @@ class ProvinceDetail extends StatefulWidget {
 }
 
 class _ProvinceDetail extends State<ProvinceDetail> {
-
   String? provinceInfor;
   String? citiesInfor;
   String? licensePlatesInfor;
@@ -56,18 +52,11 @@ class _ProvinceDetail extends State<ProvinceDetail> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
-        height: MediaQuery
-            .of(context)
-            .size
-            .height,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         padding: const EdgeInsets.symmetric(horizontal: 18),
         color: Colors.black87,
-        child:
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
               margin: const EdgeInsets.only(top: 12),
               child: const Center(
@@ -83,13 +72,21 @@ class _ProvinceDetail extends State<ProvinceDetail> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ProvinceInformation(title: 'Province', information: provinceInfor ?? ''),
-                ProvinceInformation(title: 'City', information: citiesInfor ?? ''),
-                ProvinceInformation(title: 'License plate', information: licensePlatesInfor ?? ''),
-                ProvinceInformation(title: 'University', information: universitiesInfor ?? ''),
-                ProvinceInformation(title: 'Scenic spot', information: scenicSpotsInfor ?? ''),
-                ProvinceInformation(title: 'Specialty', information: specialtiesInfor ?? ''),
-                ProvinceInformation(title: 'Created at', information: createAtInfor ?? '')
+                ProvinceInformation(
+                    title: 'Province', information: provinceInfor ?? ''),
+                ProvinceInformation(
+                    title: 'City', information: citiesInfor ?? ''),
+                ProvinceInformation(
+                    title: 'License plate',
+                    information: licensePlatesInfor ?? ''),
+                ProvinceInformation(
+                    title: 'University', information: universitiesInfor ?? ''),
+                ProvinceInformation(
+                    title: 'Scenic spot', information: scenicSpotsInfor ?? ''),
+                ProvinceInformation(
+                    title: 'Specialty', information: specialtiesInfor ?? ''),
+                ProvinceInformation(
+                    title: 'Created at', information: createAtInfor ?? '')
               ]),
           Container(
             margin: const EdgeInsets.only(top: 20),
@@ -97,36 +94,40 @@ class _ProvinceDetail extends State<ProvinceDetail> {
               children: [
                 Expanded(
                     child: Container(
-                      margin: const EdgeInsets.only(right: 6),
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6))),
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => const ProvinceListPage()));
-                          },
-                          child: const Text('Home')),
-                    )),
+                  margin: const EdgeInsets.only(right: 6),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6))),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ProvinceListPage()));
+                      },
+                      child: const Text('Home')),
+                )),
                 Expanded(
                     child: Container(
-                      margin: const EdgeInsets.only(left: 6),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const ProvinceEdit(),
-                                  settings: RouteSettings(arguments: widget.idProvince)));
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueAccent,
-                            foregroundColor: Colors.white70,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6))),
-                        child: const Text('Edit'),
-                      ),
-                    ))
+                  margin: const EdgeInsets.only(left: 6),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ProvinceEdit(),
+                              settings:
+                                  RouteSettings(arguments: widget.idProvince)));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        foregroundColor: Colors.white70,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6))),
+                    child: const Text('Edit'),
+                  ),
+                ))
               ],
             ),
           )
@@ -141,23 +142,31 @@ class _ProvinceDetail extends State<ProvinceDetail> {
         .map((city) => city['city'].toString())
         .toList();
 
-    List<dynamic> licensePlates = await getLicensePlatesByProvinceId(widget.idProvince);
-    licensePlates = licensePlates.whereType<Map<String, dynamic>>()
+    List<dynamic> licensePlates =
+        await getLicensePlatesByProvinceId(widget.idProvince);
+    licensePlates = licensePlates
+        .whereType<Map<String, dynamic>>()
         .map((licensePlate) => licensePlate['licensePlate'].toString())
         .toList();
 
-    List<dynamic> universities = await getUniversitiesByProvinceId(widget.idProvince);
-    universities = universities.whereType<Map<String, dynamic>>()
+    List<dynamic> universities =
+        await getUniversitiesByProvinceId(widget.idProvince);
+    universities = universities
+        .whereType<Map<String, dynamic>>()
         .map((university) => university['university'].toString())
         .toList();
 
-    List<dynamic> scenicSpots = await getScenicSpotsByProvinceId(widget.idProvince);
-    scenicSpots = scenicSpots.whereType<Map<String, dynamic>>()
+    List<dynamic> scenicSpots =
+        await getScenicSpotsByProvinceId(widget.idProvince);
+    scenicSpots = scenicSpots
+        .whereType<Map<String, dynamic>>()
         .map((scenicSpot) => scenicSpot['scenicSpot'].toString())
         .toList();
 
-    List<dynamic> specialties = await getSpecialtiesByProvinceId(widget.idProvince);
-    specialties = specialties.whereType<Map<String, dynamic>>()
+    List<dynamic> specialties =
+        await getSpecialtiesByProvinceId(widget.idProvince);
+    specialties = specialties
+        .whereType<Map<String, dynamic>>()
         .map((specialty) => specialty['specialty'].toString())
         .toList();
 
@@ -166,9 +175,13 @@ class _ProvinceDetail extends State<ProvinceDetail> {
       createAtInfor = province[0]['createdAt'];
       citiesInfor = cities.join(", ");
       licensePlatesInfor = licensePlates.join(", ");
-      universitiesInfor = universities.join(", ").isNotEmpty ? universities.join(", ") : 'Empty';
-      scenicSpotsInfor = scenicSpots.join(", ").isNotEmpty ? universities.join(", ") : 'Empty';
-      specialtiesInfor = specialties.join(", ").isNotEmpty ? universities.join(", ") : 'Empty';
+      universitiesInfor = universities.join(", ").isNotEmpty
+          ? universities.join(", ")
+          : 'Empty';
+      scenicSpotsInfor =
+          scenicSpots.join(", ").isNotEmpty ? universities.join(", ") : 'Empty';
+      specialtiesInfor =
+          specialties.join(", ").isNotEmpty ? universities.join(", ") : 'Empty';
     });
   }
 }

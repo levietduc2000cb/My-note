@@ -45,7 +45,6 @@ class _RegisterForm extends State<RegisterForm> {
   bool _passwordVisible = true;
   bool _confirmPasswordVisible = true;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,14 +56,14 @@ class _RegisterForm extends State<RegisterForm> {
             children: [
               Expanded(
                   child: Center(
-                    child: Text(
-                      'Register',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24),
-                    ),
-                  ))
+                child: Text(
+                  'Register',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24),
+                ),
+              ))
             ],
           ),
           Form(
@@ -79,8 +78,7 @@ class _RegisterForm extends State<RegisterForm> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your email';
-                        }
-                        else if (!isValidEmail(value)) {
+                        } else if (!isValidEmail(value)) {
                           return 'Please enter a valid email';
                         }
                         return null;
@@ -90,32 +88,37 @@ class _RegisterForm extends State<RegisterForm> {
                       controller: userNameController,
                       textInputAction: TextInputAction.next,
                       labelText: 'User name',
-                      validator: (value){
+                      validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your user name';
                         }
                         return null;
                       }),
                   InputForm(
-                      keyboardType: TextInputType.text,
-                      controller: passwordController,
-                      obscureText: _passwordVisible,
-                      textInputAction: TextInputAction.next,
-                      labelText: 'Password',
-                      suffixIcon: IconButton(
-                      icon: Icon(_passwordVisible ? Icons.visibility_off : Icons.visibility, color: Colors.white,),
+                    keyboardType: TextInputType.text,
+                    controller: passwordController,
+                    obscureText: _passwordVisible,
+                    textInputAction: TextInputAction.next,
+                    labelText: 'Password',
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _passwordVisible
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color: Colors.white,
+                      ),
                       onPressed: () {
                         setState(() {
                           _passwordVisible = !_passwordVisible;
                         });
                       },
                     ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        return null;
-                      },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      return null;
+                    },
                   ),
                   InputForm(
                       keyboardType: TextInputType.text,
@@ -124,7 +127,12 @@ class _RegisterForm extends State<RegisterForm> {
                       textInputAction: TextInputAction.done,
                       labelText: 'Confirm password',
                       suffixIcon: IconButton(
-                        icon: Icon(_confirmPasswordVisible ? Icons.visibility_off : Icons.visibility, color: Colors.white,),
+                        icon: Icon(
+                          _confirmPasswordVisible
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Colors.white,
+                        ),
                         onPressed: () {
                           setState(() {
                             _confirmPasswordVisible = !_confirmPasswordVisible;
@@ -134,7 +142,7 @@ class _RegisterForm extends State<RegisterForm> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your confirm password';
-                        }else if (value != passwordController.text) {
+                        } else if (value != passwordController.text) {
                           return 'Confirm password is not valid password';
                         }
                         return null;
@@ -147,11 +155,13 @@ class _RegisterForm extends State<RegisterForm> {
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(6)
-                                    )
-                                ),
+                                        borderRadius:
+                                            BorderRadius.circular(6))),
                                 onPressed: _submit,
-                                child: const Text('Register', style: TextStyle(color: Colors.black),)))
+                                child: const Text(
+                                  'Register',
+                                  style: TextStyle(color: Colors.black),
+                                )))
                       ],
                     ),
                   )
@@ -176,16 +186,19 @@ class _RegisterForm extends State<RegisterForm> {
       ),
     );
   }
-  void goLoginPage(){
+
+  void goLoginPage() {
     Navigator.of(context).push(
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => const LoginPage(),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const LoginPage(),
         transitionDuration: const Duration(seconds: 1),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           var begin = const Offset(1.5, 0.0);
           var end = Offset.zero;
           var curve = Curves.ease;
-          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
           return SlideTransition(
             position: animation.drive(tween),
             child: child,
@@ -195,11 +208,12 @@ class _RegisterForm extends State<RegisterForm> {
     );
   }
 
-  Future<void> _submit() async{
+  Future<void> _submit() async {
     if (_registerFormKey.currentState!.validate()) {
-      try{
-        List<dynamic> user = await checkUserNameExist(userNameController.text.trim());
-        if(user.isNotEmpty){
+      try {
+        List<dynamic> user =
+            await checkUserNameExist(userNameController.text.trim());
+        if (user.isNotEmpty) {
           if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -207,18 +221,15 @@ class _RegisterForm extends State<RegisterForm> {
               duration: Duration(seconds: 3),
             ),
           );
-        }else{
+        } else {
           await createUser(UserModel(
             email: emailController.text,
             userName: userNameController.text,
             password: passwordController.text,
           ));
           if (!mounted) return;
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const LoginPage())
-          );
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const LoginPage()));
           // ScaffoldMessenger.of(context).showSnackBar(
           //   const SnackBar(
           //     content: Text('User saved successfully'),
@@ -226,7 +237,7 @@ class _RegisterForm extends State<RegisterForm> {
           //   ),
           // );
         }
-      }catch(e){
+      } catch (e) {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -243,8 +254,7 @@ class _RegisterForm extends State<RegisterForm> {
   }
 
   bool isValidEmail(String email) {
-    String pattern =
-        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    String pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
     RegExp regex = RegExp(pattern);
     return regex.hasMatch(email);
   }

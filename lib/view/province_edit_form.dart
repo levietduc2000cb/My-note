@@ -57,40 +57,39 @@ class _ProvinceEditForm extends State<ProvinceEditForm> {
                           textInputAction: TextInputAction.done,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                                return 'Please enter your province';
+                              return 'Please enter your province';
                             }
                             return null;
-                        }
-                      )
-                  ),
+                          })),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.white, // Thay đổi màu nền
-                      foregroundColor: Colors.black, // Thay đổi màu chữ
-                      side: const BorderSide(
-                        color: Colors.white, // Thay đổi màu viền
-                        width: 1,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5), // Độ cong của viền
-                      ), padding: const EdgeInsets.symmetric(horizontal: 8)
-                    ),
+                        backgroundColor: Colors.white,
+                        // Thay đổi màu nền
+                        foregroundColor: Colors.black,
+                        // Thay đổi màu chữ
+                        side: const BorderSide(
+                          color: Colors.white, // Thay đổi màu viền
+                          width: 1,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(5), // Độ cong của viền
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 8)),
                     onPressed: submit,
                     child: const Text('Rename'),
                   )
                 ],
-              )
-          ),
+              )),
           ProvinceInforEditList(
-              idProvince: widget.idProvince,
-              titleForm: 'City',
-              idKey: 'id',
-              nameKey: 'city',
-              render: getCities,
-              handleDelete: deleteACity,
-              handleCreate: createANewCity,
+            idProvince: widget.idProvince,
+            titleForm: 'City',
+            idKey: 'id',
+            nameKey: 'city',
+            render: getCities,
+            handleDelete: deleteACity,
+            handleCreate: createANewCity,
           ),
-
           ProvinceInforEditList(
             idProvince: widget.idProvince,
             titleForm: 'License plate',
@@ -100,7 +99,6 @@ class _ProvinceEditForm extends State<ProvinceEditForm> {
             handleDelete: deleteALicensePlate,
             handleCreate: createANewLicensePlate,
           ),
-
           ProvinceInforEditList(
             idProvince: widget.idProvince,
             titleForm: 'University',
@@ -110,7 +108,6 @@ class _ProvinceEditForm extends State<ProvinceEditForm> {
             handleDelete: deleteAUniversity,
             handleCreate: createANewUniversity,
           ),
-
           ProvinceInforEditList(
             idProvince: widget.idProvince,
             titleForm: 'Scenic spot',
@@ -120,7 +117,6 @@ class _ProvinceEditForm extends State<ProvinceEditForm> {
             handleDelete: deleteAScenicSpot,
             handleCreate: createANewScenicSpot,
           ),
-
           ProvinceInforEditList(
             idProvince: widget.idProvince,
             titleForm: 'Specialty',
@@ -136,32 +132,35 @@ class _ProvinceEditForm extends State<ProvinceEditForm> {
               children: [
                 Expanded(
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6))),
-                      onPressed: (){
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => const ProvinceListPage()));
-                      },
-                      child: const Text('Home'),
-                    )),
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6))),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProvinceListPage()));
+                  },
+                  child: const Text('Home'),
+                )),
                 const SizedBox(width: 10.0),
                 Expanded(
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blueAccent,
-                          foregroundColor: Colors.white70,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6))),
-                      onPressed: (){
-                            Navigator.push(
-                            context,
-                            MaterialPageRoute(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent,
+                      foregroundColor: Colors.white70,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6))),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
                             builder: (context) => const ProvinceDetailPage(),
-                            settings: RouteSettings(arguments: widget.idProvince)));
-                      },
-                      child: const Text('Detail'),
-                    ))
+                            settings:
+                                RouteSettings(arguments: widget.idProvince)));
+                  },
+                  child: const Text('Detail'),
+                ))
               ],
             ),
           )
@@ -190,7 +189,7 @@ class _ProvinceEditForm extends State<ProvinceEditForm> {
     if (_editProvinceFormKey.currentState!.validate()) {
       try {
         bool isExist = await isExistNameProvince(provinceName.text);
-        if(isExist == false){
+        if (isExist == false) {
           await updateProvince(ProvinceModel(
             id: widget.idProvince,
             provinceName: provinceName.text.trim().toUpperCase(),
@@ -201,7 +200,7 @@ class _ProvinceEditForm extends State<ProvinceEditForm> {
             content: Text("Province updated successfully"),
             duration: Duration(seconds: 3),
           ));
-        }else{
+        } else {
           await renderProvince();
           if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -209,7 +208,6 @@ class _ProvinceEditForm extends State<ProvinceEditForm> {
             duration: Duration(seconds: 3),
           ));
         }
-
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Province update failed"),
@@ -302,5 +300,4 @@ class _ProvinceEditForm extends State<ProvinceEditForm> {
   Future<dynamic> deleteASpecialty(id) async {
     await deleteSpecialty(id);
   }
-
 }

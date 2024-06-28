@@ -17,25 +17,32 @@ class SQLHelper {
   static const _columnUserEmail = 'email';
   static const _columnUserName = 'userName';
   static const _columnUserPassword = 'password';
+
   // Provinces table
   static const _columnProvinceId = 'id';
   static const _columnProvinceName = 'provinceName';
   static const _columnProvinceUserId = 'userId';
+
   // City table
   static const _columnCityId = 'id';
   static const _columnCity = 'city';
+
   // LicensePlate table
   static const _columnLicensePlateId = 'id';
   static const _columnLicensePlate = 'licensePlate';
+
   // University table
   static const _columnUniversityId = 'id';
   static const _columnUniversity = 'university';
+
   // Scenic spot table
   static const _columnScenicSpotId = 'id';
   static const _columnScenicSpot = 'scenicSpot';
+
   // Specialty spot table
   static const _columnSpecialtyId = 'id';
   static const _columnSpecialty = 'specialty';
+
   //Create other
   static const _columnProvinceIdRelative = 'provinceId';
   static const _columnCreatedAt = 'createdAt';
@@ -99,7 +106,6 @@ $_columnProvinceIdRelative INTEGER NOT NULL,
 $_columnCreatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY ($_columnProvinceIdRelative) REFERENCES $_provincesTable($_columnProvinceId) ON DELETE CASCADE
 )''');
-
     } catch (err) {
       debugPrint("createDatabaseTable(): $err");
     }
@@ -115,7 +121,7 @@ FOREIGN KEY ($_columnProvinceIdRelative) REFERENCES $_provincesTable($_columnPro
       $_columnUserPassword TEXT NOT NULL,
       $_columnCreatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
       )''');
-    }catch(err){
+    } catch (err) {
       debugPrint("createUserTable(): $err");
     }
   }
@@ -124,23 +130,20 @@ FOREIGN KEY ($_columnProvinceIdRelative) REFERENCES $_provincesTable($_columnPro
     try {
       await database.execute('''
       ALTER TABLE $_provincesTable ADD COLUMN $_columnProvinceUserId INTEGER''');
-    }catch(err){
+    } catch (err) {
       debugPrint("createAUserIdColumn(): $err");
     }
   }
 
   static Future<Database> getDb() async {
     return openDatabase(
-        _databaseName,
-        version: _databaseVersion,
-        onCreate: (Database database, int version) async {
-          await createUserTable(database);
-          await createItemTable(database);
-        },
-      onUpgrade:(database, oldVersion, newVersion) async {
-
+      _databaseName,
+      version: _databaseVersion,
+      onCreate: (Database database, int version) async {
+        await createUserTable(database);
+        await createItemTable(database);
       },
+      onUpgrade: (database, oldVersion, newVersion) async {},
     );
   }
 }
-

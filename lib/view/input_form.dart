@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 class InputForm extends StatelessWidget {
   const InputForm(
       {super.key,
-        required this.keyboardType,
-        required this.controller,
-        this.textInputAction,
-        required this.labelText,
-        this.validator,
-        this.obscureText,
-        this.decoration,
-        this.suffixIcon
-      });
+      required this.keyboardType,
+      required this.controller,
+      this.textInputAction,
+      required this.labelText,
+      this.validator,
+      this.obscureText,
+      this.decoration,
+      this.suffixIcon});
 
   final TextInputType keyboardType;
   final bool? obscureText;
@@ -32,7 +31,7 @@ class InputForm extends StatelessWidget {
         keyboardType: keyboardType,
         controller: controller,
         textInputAction: textInputAction,
-        autovalidateMode:AutovalidateMode.onUserInteraction,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
             suffixIcon: suffixIcon,
             labelText: labelText,
@@ -45,8 +44,7 @@ class InputForm extends StatelessWidget {
                 color: Colors.white, // Màu border bottom khi focus
                 width: 1,
               ),
-            )
-        ),
+            )),
         style: const TextStyle(
           color: Colors.white, // Màu chữ
         ),

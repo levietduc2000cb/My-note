@@ -4,7 +4,8 @@ class LicensePlateModel {
   final String? createdAt;
   final int? provinceId;
 
-  LicensePlateModel({this.id, this.licensePlate, this.createdAt, this.provinceId});
+  LicensePlateModel(
+      {this.id, this.licensePlate, this.createdAt, this.provinceId});
 
   Map<String, dynamic> toMap() {
     return {

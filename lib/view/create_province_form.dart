@@ -4,7 +4,8 @@ import '../controller/province.dart';
 import '../model/province_model.dart';
 
 class CreateProvinceForm extends StatefulWidget {
-  const CreateProvinceForm({super.key, required this.cancel, required this.createProvince});
+  const CreateProvinceForm(
+      {super.key, required this.cancel, required this.createProvince});
 
   final VoidCallback cancel;
   final Future<void> Function(Map<String, dynamic>) createProvince;
@@ -25,7 +26,7 @@ class _CreateProvinceForm extends State<CreateProvinceForm> {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
         padding: EdgeInsets.only(
           top: 15,
           left: 15,
@@ -78,8 +79,7 @@ class _CreateProvinceForm extends State<CreateProvinceForm> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your license plate';
-                    }
-                    else if(!RegExp(r'^\d+(?:,\d+)*$').hasMatch(value)){
+                    } else if (!RegExp(r'^\d+(?:,\d+)*$').hasMatch(value)) {
                       return 'The value is not a comma-separated array of numbers';
                     }
                     return null;
@@ -145,7 +145,7 @@ class _CreateProvinceForm extends State<CreateProvinceForm> {
 
   Future<void> submit() async {
     if (_createProvinceFormKey.currentState!.validate()) {
-      if(await isExistNameProvince(provinceName.text) == false){
+      if (await isExistNameProvince(provinceName.text) == false) {
         Map<String, dynamic> provinceObject = {
           "provinceName": provinceName.text,
           "city": city.text,
@@ -155,14 +155,14 @@ class _CreateProvinceForm extends State<CreateProvinceForm> {
           "specialty": specialty.text
         };
         await widget.createProvince(provinceObject);
-        if(!mounted) return;
+        if (!mounted) return;
         Navigator.of(context).pop();
-      }else{
-        if(!mounted) return;
+      } else {
+        if (!mounted) return;
         Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-              content: Text('The province name exists!!!'),
+            content: Text('The province name exists!!!'),
           ),
         );
       }
@@ -172,5 +172,4 @@ class _CreateProvinceForm extends State<CreateProvinceForm> {
       );
     }
   }
-
 }

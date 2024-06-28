@@ -25,13 +25,12 @@ class _SearchProvinceForm extends State<SearchProvinceForm> {
               Expanded(
                   flex: 1,
                   child: TextFormField(
-                    controller: provinceName,
-                    decoration: const InputDecoration(
+                      controller: provinceName,
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.symmetric(horizontal: 6),
                         hintText: 'Search province...',
                         border: InputBorder.none,
-                    )
-                  )),
+                      ))),
               IconButton(
                 onPressed: search,
                 icon: const Icon(Icons.search),
@@ -50,9 +49,7 @@ class _SearchProvinceForm extends State<SearchProvinceForm> {
                 children: [
                   Expanded(
                       child: DropdownButtonFormField<String>(
-                        decoration: const InputDecoration(
-                          border: InputBorder.none
-                        ),
+                    decoration: const InputDecoration(border: InputBorder.none),
                     value: selectedSort,
                     items: <String>['Default', 'High to low', 'Low to high']
                         .map<DropdownMenuItem<String>>((String value) {
@@ -71,11 +68,10 @@ class _SearchProvinceForm extends State<SearchProvinceForm> {
               ),
             )
           ],
-        )
-    );
+        ));
   }
 
-  void search(){
+  void search() {
     widget.handleSearch(provinceName.text, selectedSort);
   }
 }

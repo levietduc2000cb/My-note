@@ -12,10 +12,11 @@ Future<void> showConfirmationDialog({
     builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: Colors.black,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12)
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        title: Text(
+          title,
+          style: const TextStyle(color: Colors.white),
         ),
-        title: Text(title, style: const TextStyle(color: Colors.white),),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
